@@ -71,18 +71,20 @@ const titleRuns = (bold = true) => [
   new TextRun({ text: fm.titulo + (fm.subtitulo ? ': ' : ''), font: FONT, size: SZ, bold }),
   ...(fm.subtitulo ? [new TextRun({ text: fm.subtitulo, font: FONT, size: SZ, bold: false })] : []),
 ];
+const AUT = fm.autor.split(' | ');
+const autores = (first) => AUT.map((a, i) => new Paragraph({ alignment: AlignmentType.CENTER, spacing: i === 0 ? first : { line: LINE15 }, children: runs(a, { bold: true }) }));
 const capa = [
   center(fm.instituicao, { bold: true, line: LINE15 }),
   center(fm.nucleo, { bold: true }),
   center(fm.curso, { bold: true }),
-  new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 2600, line: LINE15 }, children: runs(fm.autor, { bold: true }) }),
+  ...autores({ before: 2600, line: LINE15 }),
   new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 2600, line: LINE15 }, children: titleRuns() }),
   new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 4400, line: LINE15 }, children: runs(fm.local, { bold: true }) }),
   center(fm.ano, { bold: true }),
 ];
 // ---------- folha de rosto ----------
 const rosto = [
-  new Paragraph({ alignment: AlignmentType.CENTER, pageBreakBefore: true, spacing: { line: LINE15 }, children: runs(fm.autor, { bold: true }) }),
+  ...autores({ line: LINE15 }).map((p, i) => i === 0 ? new Paragraph({ alignment: AlignmentType.CENTER, pageBreakBefore: true, spacing: { line: LINE15 }, children: runs(AUT[0], { bold: true }) }) : p),
   new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 3000, line: LINE15 }, children: titleRuns() }),
   new Paragraph({
     alignment: AlignmentType.JUSTIFIED, spacing: { before: 900, line: LINE1 }, indent: { left: Math.round(8 * CM) },
@@ -260,7 +262,7 @@ const pageProps = {
 };
 
 const doc = new Document({
-  creator: fm.autor,
+  creator: fm.autor.replace(' | ', '; '),
   title: `${fm.titulo}: ${fm.subtitulo}`,
   styles: {
     default: { document: { run: { font: FONT, size: SZ } } },

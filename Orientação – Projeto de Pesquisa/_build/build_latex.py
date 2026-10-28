@@ -218,7 +218,7 @@ Orientador: @ORIENTADOR@.
 '''
 rep = {
     '@INST@': esc(fm['instituicao']), '@NUCLEO@': esc(fm['nucleo']), '@CURSO@': esc(fm['curso']),
-    '@AUTOR@': esc(fm['autor']), '@TITULO@': title_runs(), '@LOCAL@': inline(fm['local']), '@ANO@': esc(fm['ano']),
+    '@AUTOR@': ' \\\\ '.join(esc(a) for a in fm['autor'].split(' | ')), '@TITULO@': title_runs(), '@LOCAL@': inline(fm['local']), '@ANO@': esc(fm['ano']),
     '@ORIENTADOR@': esc(fm['orientador']),
     '@NATUREZA@': 'Projeto de pesquisa apresentado ao curso ' + esc(fm['curso_extenso']) +
                   ' como requisito da disciplina de TCC, para fins de planejamento, organização e elaboração de trabalhos científicos.',

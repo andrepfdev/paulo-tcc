@@ -101,6 +101,110 @@ head, sep, refs = text.partition('# REFERÊNCIAS')
 head = CIT.sub(up, head)
 text = head + sep + refs
 
+# --- revisão pós-crítica (28/10/2026): referências, dado do Cetic.br, métodos
+def sub1(old, new):
+    global text
+    assert text.count(old) == 1, ('âncora ausente/duplicada: ' + old[:60], text.count(old))
+    text = text.replace(old, new)
+
+ANPD = 'AUTORIDADE NACIONAL DE PROTEÇÃO DE DADOS'
+# 1) dado do Cetic.br usado fora do escopo
+text, n = re.subn(r'Essa expansão, porém, não foi acompanhada.*?pouca ou nenhuma camada de proteção e de controle\.',
+    'Essa expansão amplia a superfície de exposição das redes municipais: quanto mais os serviços e os usuários '
+    'dependem da conexão, maior o impacto de acessos indevidos e de ataques, e os incidentes contra órgãos públicos '
+    'têm crescido (ARRUDA, 2025). A pesquisa do Cetic.br, contudo, não mede a segurança cibernética das prefeituras; '
+    'por isso, a ausência de controles de navegação em redes de municípios de pequeno porte é tratada aqui como '
+    'problema observado pelo pesquisador, e não como dado estatístico.', text, flags=re.S)
+assert n == 1
+sub1('Os dados da pesquisa TIC Governo Eletrônico, que revelam baixa presença de centros de monitoramento nas prefeituras menores '
+     '(CENTRO REGIONAL DE ESTUDOS PARA O DESENVOLVIMENTO DA SOCIEDADE DA INFORMAÇÃO, 2024), e o aumento dos incidentes contra órgãos públicos (ARRUDA, 2025) reforçam',
+     'O aumento dos incidentes contra órgãos públicos (ARRUDA, 2025) reforça')
+# 2) normas vigentes
+sub1('A Política Nacional de Segurança da Informação (BRASIL, 2018a) e a Política Nacional de Cibersegurança (BRASIL, 2023) estabelecem',
+     'A Política Nacional de Segurança da Informação (BRASIL, 2025a), a Política Nacional de Cibersegurança (BRASIL, 2023) e a Estratégia Nacional de Cibersegurança (BRASIL, 2025b) estabelecem')
+sub1('a Política Nacional de Segurança da Informação (BRASIL, 2018a) e a Política Nacional de Cibersegurança (BRASIL, 2023) definem',
+     'a Política Nacional de Segurança da Informação (BRASIL, 2025a), a Política Nacional de Cibersegurança (BRASIL, 2023) e a Estratégia Nacional de Cibersegurança (BRASIL, 2025b) definem')
+text = text.replace('2018b', '2018')
+# 3) novas referências no texto
+sub1('para acelerar consultas futuras.',
+     'para acelerar consultas futuras. A terminologia adotada neste trabalho segue a consolidação mais recente publicada pelo IETF (HOFFMAN; FUJIWARA, 2024).')
+sub1('A eficácia desse modelo, porém, depende diretamente da qualidade das listas utilizadas.',
+     'O CIS Controls v8.1 distingue a filtragem de DNS (salvaguarda 9.2), que bloqueia domínios maliciosos conhecidos, dos filtros de URL em nível de rede '
+     '(salvaguarda 9.3), distinção que delimita o que o Pi-hole resolve e o que exigiria controles adicionais (CENTER FOR INTERNET SECURITY, 2024). '
+     'A eficácia desse modelo, porém, depende diretamente da qualidade das listas utilizadas.')
+sub1('controles de DNS da organização (CYBERSECURITY AND INFRASTRUCTURE SECURITY AGENCY, 2024).',
+     'controles de DNS da organização (CYBERSECURITY AND INFRASTRUCTURE SECURITY AGENCY, 2024). O DNS sobre QUIC (DoQ), padronizado em 2022, '
+     'oferece confidencialidade comparável à do DoT sobre outro transporte (HUITEMA; DICKINSON; MANKIN, 2022); por restrição de escopo, os testes de contorno '
+     'se limitarão a DNS externo configurado manualmente, DoT e DoH, e o DoQ será registrado como limitação.')
+sub1('e comunicar a existência do filtro aos usuários por meio de uma política de uso aceitável.',
+     'e comunicar a existência do filtro aos usuários por meio de uma política de uso aceitável. O guia orientativo da ANPD sobre o tratamento de dados pessoais pelo poder público '
+     f'detalha a aplicação das bases legais e dos princípios da LGPD a órgãos públicos ({ANPD}, 2023a), e o guia sobre fins acadêmicos orienta o tratamento de dados em estudos e pesquisas ({ANPD}, 2023b).')
+sub1('Dresch, Lacerda e Antunes Júnior (2015) organizam a DSR',
+     'Peffers *et al.* (2007) propõem processo em seis atividades (identificação do problema e motivação, definição dos objetivos da solução, projeto e desenvolvimento, demonstração, avaliação e comunicação), '
+     'que orienta a sequência das etapas do Quadro 1. Dresch, Lacerda e Antunes Júnior (2015) organizam a DSR')
+sub1('Na etapa 3, o servidor local receberá',
+     'A avaliação do artefato segue o *framework* FEDS, de Venable, Pries-Heje e Baskerville (2016), que classifica as avaliações quanto ao propósito (formativa ou somativa) e ao paradigma (artificial ou naturalista). '
+     'Os testes em ambiente de homologação constituem avaliação artificial e formativa, que permite corrigir o artefato; o piloto, quando autorizado, constitui avaliação naturalista e somativa. '
+     'Caso o piloto não seja autorizado, a conclusão se apoiará na avaliação em homologação, e as limitações decorrentes serão registradas.\n\n'
+     'Na etapa 3, o servidor local receberá')
+# 4) lista local de domínios indesejados do setor
+sub1('a partir das fontes discutidas na seção 3.3, uma lista de permissão',
+     'a partir das fontes discutidas na seção 3.3, uma lista local de domínios indesejados, definida com o responsável pelo setor e aplicada apenas ao grupo de clientes desse setor, uma lista de permissão')
+sub1('b) políticas de filtragem: listas de bloqueio por categoria, expressões regulares,',
+     'b) políticas de filtragem: listas de bloqueio por categoria, lista local de domínios indesejados definida com cada setor, expressões regulares,')
+# 5) Quadro 2: amostras, cache e novos indicadores
+sub1('extraída de fontes independentes das listas utilizadas |',
+     'extraída de fontes independentes das listas utilizadas, com tamanho, origem, data de coleta e critério de classificação registrados |')
+sub1('com o DNS atual e com o Pi-hole, com e sem *cache* | Tempo médio e mediana de resposta (ms) |',
+     'com o DNS atual e com o Pi-hole, com *cache* frio e aquecido, em medições repetidas | Mediana e dispersão do tempo de resposta (ms) |')
+sub1('| Grupos | Verificar',
+     '| Custo | Registrar o custo de aquisição ou aproveitamento do servidor, o tempo de configuração, a manutenção necessária e, se viável, o consumo elétrico estimado | Custo (R$), tempo (h) e consumo estimado (kWh/mês) | Registro de implantação |\n'
+     '| Confiabilidade | Simular a indisponibilidade do servidor Pi-hole e uma regra de *firewall* incorreta, registrando o comportamento da rede e a recuperação | Tempo de recuperação e comportamento da rede | Roteiro de testes e registro em planilha |\n'
+     '| Grupos | Verificar')
+sub1('Os parâmetros de referência para a análise, a serem validados com o orientador, são:',
+     'Os critérios de avaliação, definidos antes da execução dos testes e a serem validados com o orientador, não são resultados esperados nem garantidos; são eles:')
+sub1('em relação ao DNS atualmente utilizado.',
+     'em relação ao DNS atualmente utilizado.\n\n'
+     'No diagnóstico da etapa 2, será confirmado se o roteador TP-Link Aginet EX511 permite definir o DNS distribuído por DHCP e criar regras de saída que bloqueiem DNS externo; '
+     'caso não permita, serão documentadas alternativas, como o uso de um *firewall* adicional ou do próprio servidor como DHCP. '
+     'Ressalta-se que o Pi-hole bloqueia nomes de domínio das categorias escolhidas, e não o conteúdo das páginas, de modo que os resultados não permitirão afirmar que o acesso a conteúdo indevido foi impedido por completo nem que os riscos de *malware* e *phishing* foram eliminados.')
+sub1('sem identificação de servidores, em conformidade com a LGPD (BRASIL, 2018).',
+     'sem identificação de servidores, em conformidade com a LGPD (BRASIL, 2018). Os registros terão como finalidade exclusiva a avaliação do filtro e a segurança da rede, '
+     'com acesso restrito ao responsável técnico e ao pesquisador, prazo de retenção definido com a instituição e limitado ao necessário para a pesquisa, e exclusão ao término do estudo '
+     f'({ANPD}, 2023a, 2023b).')
+
+# 5b) dois autores
+text = text.replace('Elaborado pelo autor', 'Elaborado pelos autores')
+sub1('como problema observado pelo pesquisador,', 'como problema observado pelos pesquisadores,')
+sub1('do próprio órgão ou do pesquisador,', 'do próprio órgão ou dos pesquisadores,')
+sub1('ao responsável técnico e ao pesquisador,', 'ao responsável técnico e aos pesquisadores,')
+
+# 6) Referências
+m = re.search(r'^BRASIL\. Decreto nº 9\.637.*\n\n', text, re.M); assert m
+text = text.replace(m.group(0), '')
+def ins_before(anchor, entry):
+    global text
+    assert text.count('\n' + anchor) == 1, anchor
+    text = text.replace('\n' + anchor, '\n' + entry + '\n\n' + anchor)
+ins_before('CENTER FOR INTERNET SECURITY.',
+  'BRASIL. Decreto nº 12.572, de 4 de agosto de 2025. Institui a Política Nacional de Segurança da Informação e dispõe sobre a governança da segurança da informação. '
+  '**Diário Oficial da União**: seção 1, Brasília, DF, 5 ago. 2025a. Disponível em: https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2025/decreto/d12572.htm. Acesso em: 28 out. 2026.\n\n'
+  'BRASIL. Decreto nº 12.573, de 4 de agosto de 2025. Institui a Estratégia Nacional de Cibersegurança. '
+  '**Diário Oficial da União**: seção 1, Brasília, DF, 5 ago. 2025b. Disponível em: https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2025/decreto/d12573.htm. Acesso em: 28 out. 2026.')
+ins_before('BARDIN, Laurence.',
+  f'{ANPD}. **Tratamento de dados pessoais pelo Poder Público**: guia orientativo. Versão 2.0. Brasília, DF: ANPD, jun. 2023a. '
+  'Disponível em: https://www.gov.br/anpd/pt-br/centrais-de-conteudo/materiais-educativos-e-publicacoes/guia-poder-publico-anpd-versao-final.pdf. Acesso em: 28 out. 2026.\n\n'
+  f'{ANPD}. **Tratamento de dados pessoais para fins acadêmicos e para a realização de estudos e pesquisas**: guia orientativo. Brasília, DF: ANPD, 2023b. '
+  'Disponível em: https://www.gov.br/anpd/pt-br/centrais-de-conteudo/materiais-educativos-e-publicacoes/guia-orientativo-tratamento-de-dados-pessoais-para-fins-academicos-e-para-a-realizacao-de-estudos-e-pesquisas. Acesso em: 28 out. 2026.')
+ins_before('HOFFMAN, Paul; MCMANUS',
+  'HOFFMAN, Paul; FUJIWARA, Kazunori. **RFC 9499**: DNS terminology. [*S. l.*]: IETF, 2024. DOI: https://doi.org/10.17487/RFC9499.')
+ins_before('KHORMALI, Aminollah',
+  'HUITEMA, Christian; DICKINSON, Sara; MANKIN, Allison. **RFC 9250**: DNS over dedicated QUIC connections. [*S. l.*]: IETF, 2022. DOI: https://doi.org/10.17487/RFC9250.')
+ins_before('PI-HOLE. **Pi-hole documentation**',
+  'PEFFERS, Ken *et al*. A design science research methodology for information systems research. **Journal of Management Information Systems**, [*s. l.*], v. 24, n. 3, p. 45-77, 2007. DOI: https://doi.org/10.2753/MIS0742-1222240302.')
+ins_before('WAZLAWICK, Raul',
+  'VENABLE, John; PRIES-HEJE, Jan; BASKERVILLE, Richard. FEDS: a framework for evaluation in design science research. **European Journal of Information Systems**, [*s. l.*], v. 25, n. 1, p. 77-89, 2016. DOI: https://doi.org/10.1057/ejis.2014.36.')
+
 # --- placeholders destacados
 PH = re.compile(r'\[(Município|nome do prédio[^\]]*|número|descrever[^\]]*)\]')
 text = PH.sub(lambda m: '==[' + m.group(1).replace('*', '') + ']==', text)
@@ -119,7 +223,7 @@ instituicao: UNIVERSIDADE ESTADUAL DO MARANHÃO
 nucleo: NÚCLEO DE TECNOLOGIAS PARA EDUCAÇÃO
 curso: CURSO SUPERIOR DE TECNOLOGIA EM ANÁLISE E DESENVOLVIMENTO DE SISTEMAS
 curso_extenso: Superior de Tecnologia em Análise e Desenvolvimento de Sistemas
-autor: PAULO RICARDO COIMBRA SOUSA
+autor: PAULO RICARDO COIMBRA SOUSA | KAIRO BRENDO RODRIGUES MARINHO LOPES SILVA
 titulo: "FILTRAGEM DNS COM PI-HOLE EM SERVIDOR LOCAL"
 subtitulo: "proposta de controle de acesso a conteúdos indevidos na rede de um prédio público municipal"
 orientador: "Prof. Me. Paulo Ericson Valentim Silva"
