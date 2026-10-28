@@ -104,7 +104,13 @@ text = head + sep + refs
 # --- placeholders destacados
 PH = re.compile(r'\[(Município|nome do prédio[^\]]*|número|descrever[^\]]*)\]')
 text = PH.sub(lambda m: '==[' + m.group(1).replace('*', '') + ']==', text)
-text = text.replace('==[Município]==', 'Grajaú').replace('[Nome do Curso]', 'Tecnologia em Análise e Desenvolvimento de Sistemas')
+LOCAL = ('O estudo será realizado no prédio-sede da Secretaria Municipal de Educação de Sítio Novo/MA, situado na '
+         'Avenida Leonardo de Almeida, s/nº, Centro, que conta com aproximadamente 14 estações de trabalho, conectadas em '
+         'sua maior parte por rede cabeada com cabeamento de categoria 5e, além de rede sem fio (*Wi-Fi*), sendo a '
+         'distribuição de endereços (DHCP) e o acesso à internet realizados por um roteador TP-Link Aginet EX511 '
+         '(*Wi-Fi* 6, *Dual-Band* AX3000). ')
+text = re.sub(r'O estudo será realizado no ==\[nome do prédio.*?==\[descrever[^\]]*\]==\. ', LOCAL, text, flags=re.S)
+text = text.replace('==[Município]==', 'Sítio Novo').replace('[Nome do Curso]', 'Tecnologia em Análise e Desenvolvimento de Sistemas')
 text = re.sub(r'e com a observação de que ==\[descrever[^\]]*\]==\.',
               'e com a necessidade observada de evitar o uso indevido das redes públicas de internet, o que motivou a busca por uma solução acessível de controle de acesso.', text)
 
