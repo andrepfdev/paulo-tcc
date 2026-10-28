@@ -179,6 +179,19 @@ sub1('como problema observado pelo pesquisador,', 'como problema observado pelos
 sub1('do próprio órgão ou do pesquisador,', 'do próprio órgão ou dos pesquisadores,')
 sub1('ao responsável técnico e ao pesquisador,', 'ao responsável técnico e aos pesquisadores,')
 
+# 7) plataforma do servidor e acesso ao painel
+sub1('inclusive em um computador reaproveitado ou em uma máquina virtual, solução adotada neste projeto',
+     'inclusive em um computador reaproveitado, solução adotada neste projeto, com instalação nativa e sem contêineres, e em uma máquina virtual, restrita ao ambiente de homologação,')
+sub1('um sistema operacional Linux de suporte estendido (Debian 12 ou Ubuntu Server 24.04 LTS), endereço IP fixo e a versão estável mais recente do Pi-hole.',
+     'um sistema operacional Linux de suporte estendido (Debian 12 ou Ubuntu Server 24.04 LTS), sem interface gráfica, instalado em computador reaproveitado, endereço IP fixo e a versão estável mais recente do Pi-hole, instalada diretamente no sistema, sem contêineres, pela simplicidade da configuração de rede e pela facilidade de replicação por equipes pequenas. O acesso ao painel de administração será restrito, por regra de *firewall* do servidor, às estações da administração, com senha forte e HTTPS. O computador será configurado para reiniciar após queda de energia e terá cópia periódica de suas configurações.')
+sub1('a) servidor local: computador ou máquina virtual com Linux, endereço IP fixo, Pi-hole e, opcionalmente, Unbound',
+     'a) servidor local: computador reaproveitado com Linux em edição servidor, endereço IP fixo, Pi-hole instalado de forma nativa e, opcionalmente, Unbound')
+sub1('d) gestão e governança: painel de acompanhamento,', 'd) gestão e governança: painel de acompanhamento com acesso restrito às estações de administração,')
+sub1('registrando o comportamento da rede e a recuperação | Tempo de recuperação',
+     'o desligamento abrupto do computador e a restauração da cópia de configuração, registrando o comportamento da rede e a recuperação, e verificar que o painel não abre em estação comum | Tempo de recuperação')
+sub1('Como o filtro atua no servidor,',
+     'O Pi-hole também é distribuído como imagem Docker, forma que não será avaliada neste trabalho. Como o filtro atua no servidor,')
+
 # 6) Referências
 m = re.search(r'^BRASIL\. Decreto nº 9\.637.*\n\n', text, re.M); assert m
 text = text.replace(m.group(0), '')
