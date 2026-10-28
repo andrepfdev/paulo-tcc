@@ -1,0 +1,152 @@
+[
+ {
+  "key": "1 INTRODUÇÃO",
+  "num": "1",
+  "title": "INTRODUÇÃO",
+  "level": 1
+ },
+ {
+  "key": "1.1 Problema e questão norteadora",
+  "num": "1.1",
+  "title": "Problema e questão norteadora",
+  "level": 2
+ },
+ {
+  "key": "1.2 Justificativa",
+  "num": "1.2",
+  "title": "Justificativa",
+  "level": 2
+ },
+ {
+  "key": "1.3 Hipóteses",
+  "num": "1.3",
+  "title": "Hipóteses",
+  "level": 2
+ },
+ {
+  "key": "2 OBJETIVOS",
+  "num": "2",
+  "title": "OBJETIVOS",
+  "level": 1
+ },
+ {
+  "key": "2.1 Objetivo Geral",
+  "num": "2.1",
+  "title": "Objetivo Geral",
+  "level": 2
+ },
+ {
+  "key": "2.2 Objetivos Específicos",
+  "num": "2.2",
+  "title": "Objetivos Específicos",
+  "level": 2
+ },
+ {
+  "key": "3 REFERENCIAL TEÓRICO",
+  "num": "3",
+  "title": "REFERENCIAL TEÓRICO",
+  "level": 1
+ },
+ {
+  "key": "3.1 Segurança da informação na administração pública",
+  "num": "3.1",
+  "title": "Segurança da informação na administração pública",
+  "level": 2
+ },
+ {
+  "key": "3.2 O sistema de nomes de domínio (DNS)",
+  "num": "3.2",
+  "title": "O sistema de nomes de domínio (DNS)",
+  "level": 2
+ },
+ {
+  "key": "3.3 Filtragem baseada em DNS e *DNS sinkhole*",
+  "num": "3.3",
+  "title": "Filtragem baseada em DNS e *DNS sinkhole*",
+  "level": 2
+ },
+ {
+  "key": "3.4 O Pi-hole: arquitetura e funcionalidades",
+  "num": "3.4",
+  "title": "O Pi-hole: arquitetura e funcionalidades",
+  "level": 2
+ },
+ {
+  "key": "3.5 Limites da filtragem DNS e medidas complementares",
+  "num": "3.5",
+  "title": "Limites da filtragem DNS e medidas complementares",
+  "level": 2
+ },
+ {
+  "key": "3.6 Aspectos legais e éticos do controle de acesso",
+  "num": "3.6",
+  "title": "Aspectos legais e éticos do controle de acesso",
+  "level": 2
+ },
+ {
+  "key": "4 METODOLOGIA",
+  "num": "4",
+  "title": "METODOLOGIA",
+  "level": 1
+ },
+ {
+  "key": "4.1 Caracterização da pesquisa",
+  "num": "4.1",
+  "title": "Caracterização da pesquisa",
+  "level": 2
+ },
+ {
+  "key": "4.2 Local, objeto de estudo e participantes",
+  "num": "4.2",
+  "title": "Local, objeto de estudo e participantes",
+  "level": 2
+ },
+ {
+  "key": "4.3 Etapas e procedimentos",
+  "num": "4.3",
+  "title": "Etapas e procedimentos",
+  "level": 2
+ },
+ {
+  "key": "4.4 Proposta tecnológica preliminar",
+  "num": "4.4",
+  "title": "Proposta tecnológica preliminar",
+  "level": 2
+ },
+ {
+  "key": "4.5 Análise dos dados",
+  "num": "4.5",
+  "title": "Análise dos dados",
+  "level": 2
+ },
+ {
+  "key": "4.6 Aspectos éticos",
+  "num": "4.6",
+  "title": "Aspectos éticos",
+  "level": 2
+ },
+ {
+  "key": "5 CRONOGRAMA",
+  "num": "5",
+  "title": "CRONOGRAMA",
+  "level": 1
+ },
+ {
+  "key": "REFERÊNCIAS",
+  "num": "",
+  "title": "REFERÊNCIAS",
+  "level": 1
+ },
+ {
+  "key": "APÊNDICE A – ROTEIRO DE ENTREVISTA SEMIESTRUTURADA COM O RESPONSÁVEL TÉCNICO PELA REDE",
+  "num": "",
+  "title": "APÊNDICE A – ROTEIRO DE ENTREVISTA SEMIESTRUTURADA COM O RESPONSÁVEL TÉCNICO PELA REDE",
+  "level": 1
+ },
+ {
+  "key": "APÊNDICE B – CHECKLIST DE DIAGNÓSTICO DA REDE",
+  "num": "",
+  "title": "APÊNDICE B – CHECKLIST DE DIAGNÓSTICO DA REDE",
+  "level": 1
+ }
+]

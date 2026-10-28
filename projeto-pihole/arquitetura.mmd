@@ -1,0 +1,17 @@
+flowchart TB
+    L["Listas de bloqueio<br/>(adulto, apostas, malware, phishing)"]
+    subgraph LAN["Rede local do prédio público municipal"]
+        direction TB
+        E1["Estações de trabalho<br/>(grupo Administração)"]
+        E2["Estações de atendimento<br/>(grupo Atendimento)"]
+        W["Rede sem fio<br/>(grupo Visitantes)"]
+        PH["Servidor local Linux<br/>Pi-hole (FTL + gravity) + Unbound (opcional)<br/>Domínio bloqueado → resposta nula (0.0.0.0)"]
+        E1 --> PH
+        E2 --> PH
+        W --> PH
+    end
+    R["Roteador / firewall<br/>DHCP entrega o Pi-hole como DNS<br/>Bloqueia DNS externo (53/853) e DoH"]
+    I(("Internet"))
+    L -. "atualização periódica" .-> PH
+    PH -- "somente consultas permitidas" --> R
+    R --> I
